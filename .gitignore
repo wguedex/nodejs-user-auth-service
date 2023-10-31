@@ -1,3 +1,6 @@
+# Config file
+configs.ts
+
 # Logs
 logs
 *.log
