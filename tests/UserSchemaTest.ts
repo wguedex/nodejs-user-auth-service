@@ -1,6 +1,7 @@
 import config from "../src/configs/configs";
 import MongoDBConfig from "../src/databases/MongoDBConfig";
 import User from "../src/models/user";
+import bcrypt from 'bcrypt';
 
 console.log(config);
 
@@ -19,14 +20,20 @@ if (uri && user && password) {
     // Crea un nuevo usuario
     const newUser = new User({
       name: "Test User",
-      email: "test2@example.com",
+      email: "test3@example.com",
       password: "testpassword",
       role: "USER_ROLE",
     });
 
     try {
+      
+      const saltRounds = 10; // El número de rondas de sal (puede ajustarse según tus necesidades)
+      const hash = await bcrypt.hash(password, saltRounds);
+      newUser.password = hash;
+ 
       // Guarda el usuario en la base de datos
       await newUser.save();
+ 
       console.log("User created:", newUser);
     } catch (error) {
       console.error("Error creating user:", error);
