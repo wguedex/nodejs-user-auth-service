@@ -5,20 +5,20 @@ import MongoDBConfig from "../src/databases/MongoDBConfig"; // Import the MongoD
 // Log the configuration object for debugging purposes
 console.log(config);
 
-// Access environment variables loaded from .env file
+// Access environment variables loaded from a .env file
 const uri = config.mongodb.uri; // Get the MongoDB URI
 const user = config.mongodb.user; // Get the MongoDB user
 const password = config.mongodb.password; // Get the MongoDB password
 
-// Check if uri, user, and password are defined
+// Check if 'uri', 'user', and 'password' are defined
 if (uri && user && password) {
-  // Create an instance of the MongoDBConfig class using environment variables
+  // Create an instance of the 'MongoDBConfig' class using environment variables
   const mongoConfig = new MongoDBConfig(uri, user, password);
 
   // Connect to the MongoDB database
   mongoConfig.connect();
 
-  // Disconnect to the MongoDB database
+  // Disconnect from the MongoDB database
   mongoConfig.disconnect();
 } else {
   console.error("MongoDB connection parameters are not defined.");

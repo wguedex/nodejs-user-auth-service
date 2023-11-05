@@ -1,5 +1,6 @@
-const { Schema, model } = require('mongoose');
- 
+
+import { Schema, model } from 'mongoose';
+
 // Subschema to store information for each authentication provider
 const AuthProviderSchema = new Schema({
   name: {
@@ -11,7 +12,7 @@ const AuthProviderSchema = new Schema({
 });
 
 // Define the main User schema
-const UserSchema = Schema({
+const UserSchema = new Schema({
   name: {
     type: String,
     required: [true, 'Name is required'],
@@ -61,9 +62,5 @@ UserSchema.methods.toJSON = function () {
 // Add an index on the "email" field for efficient searches
 UserSchema.index({ email: 1 });
 
-// Create the User model based on the schema
-// module.exports = model('User', UserSchema);
-
 const User = model('User', UserSchema);
-
 export default User;

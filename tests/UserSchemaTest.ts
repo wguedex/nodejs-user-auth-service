@@ -1,23 +1,34 @@
+// Import configuration settings from the 'configs' module.
 import config from "../src/configs/configs";
+
+// Import the 'MongoDBConfig' class to set up MongoDB configuration.
 import MongoDBConfig from "../src/databases/MongoDBConfig";
+
+// Import the 'User' model for working with user data.
 import User from "../src/models/user";
+
+// Import the 'bcrypt' library for password hashing.
 import bcrypt from 'bcrypt';
 
+// Log the 'config' object to the console for reference.
 console.log(config);
 
+// Extract MongoDB connection details from the 'config' object.
 const uri = config.mongodb.uri;
 const user = config.mongodb.user;
 const password = config.mongodb.password;
 
+// Check if MongoDB connection parameters are defined.
 if (uri && user && password) {
+  // Create a new instance of 'MongoDBConfig' with connection details.
   const mongoConfig = new MongoDBConfig(uri, user, password);
 
-  // Función asincrónica para crear y guardar un usuario
+  // Asynchronous function to create and save a user.
   const createAndSaveUser = async () => {
-    // Conéctate a la base de datos
+    // Connect to the MongoDB database.
     await mongoConfig.connect();
 
-    // Crea un nuevo usuario
+    // Create a new user object with sample data.
     const newUser = new User({
       name: "Test User",
       email: "test3@example.com",
@@ -26,25 +37,27 @@ if (uri && user && password) {
     });
 
     try {
-      
-      const saltRounds = 10; // El número de rondas de sal (puede ajustarse según tus necesidades)
-      const hash = await bcrypt.hash(password, saltRounds);
+      // Set the number of salt rounds for password hashing.
+      const saltRounds = 10;
+
+      // Hash the user's password using 'bcrypt'.
+      const hash = await bcrypt.hash(newUser.password, saltRounds);
       newUser.password = hash;
- 
-      // Guarda el usuario en la base de datos
+
+      // Save the user in the database.
       await newUser.save();
- 
+
       console.log("User created:", newUser);
     } catch (error) {
       console.error("Error creating user:", error);
     } finally {
-      // Cierra la conexión después de realizar las operaciones
+      // Close the MongoDB connection after the operations are done.
       console.log("Disconnected from MongoDB");
       await mongoConfig.disconnect();
     }
   };
 
-  createAndSaveUser(); // Llama a la función para crear y guardar el usuario
+  createAndSaveUser(); // Call the function to create and save the user.
 } else {
   console.error("MongoDB connection parameters are not defined.");
 }
