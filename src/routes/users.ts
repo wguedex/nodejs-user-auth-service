@@ -5,7 +5,8 @@ const { Router } = require('express');
 const { getUsers, 
         getUserById, 
         createUser, 
-        updateUser } = require('../controllers/users');
+        updateUser, 
+        deleteUser } = require('../controllers/users');
 
 // Create a new instance of the 'Router' class.
 const router = Router();
@@ -25,6 +26,10 @@ router.post('/', createUser);
 // Define a route to handle PUT requests to '/api/users/:id'.
 // It uses the 'updateUser' function from the controller to handle the request.
 router.put('/:id', updateUser);
+
+// Define a route to handle DELETE requests to '/api/users/:id'.
+// It uses the 'deleteUser' function from the controller to handle the request.
+router.delete('/:id', deleteUser);
 
 // Export the 'router' instance to make it available for use in other parts of the application.
 module.exports = router;

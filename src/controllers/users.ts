@@ -105,10 +105,38 @@ const updateUser = async (req = request, res = response) => {
   }
 };
 
+const deleteUser = async (req = request, res = response) => {
+  try {
+    const userId = req.params.id;
+
+    if (!userId) {
+      // If the user ID is not provided, return a 401 (Unauthorized) response.
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    // Perform a soft delete by updating the 'status' field to false.
+    const updatedUser = await User.findByIdAndUpdate(userId, { status: false }, { new: true });
+
+    if (!updatedUser) {
+      // If the user is not found, return a 404 (Not Found) response.
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Return a 200 (OK) status with the updated user (marked as inactive).
+    res.status(200).json(updatedUser);
+
+  } catch (error) {
+    // If an error occurs during the soft delete, return a 500 (Internal Server Error) response.
+    res.status(500).json({ error: 'Error deleting user by ID' });
+  }
+};
+
+
 // Export the 'getUsers', 'getUserById', and 'createUser' functions for use in other modules.
 module.exports = {
   getUsers,
   getUserById,
   createUser, 
-  updateUser
+  updateUser, 
+  deleteUser
 };
