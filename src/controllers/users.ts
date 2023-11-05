@@ -1,6 +1,9 @@
 // Import the 'User' model from '../models/user'.
 import User from "../models/user";
 
+// Import the 'bcryptjs' library for password hashing.
+import bcryptjs from 'bcryptjs';
+
 // Import the 'request' and 'response' objects from the 'express' library.
 import { request, response } from "express";
 
@@ -34,22 +37,46 @@ const getUsers = async (req = request, res = response) => {
   }
 };
 
+// Define an asynchronous function 'getUserById' to retrieve a user by ID.
 const getUserById = async (req = request, res = response) => {
   try {
     const userId = req.params.id;
     const user = await User.findById(userId);
 
     if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+      return res.status(404).json({ error: "User not found" });
     }
 
     res.json(user);
   } catch (error) {
-    res.status(500).json({ error: 'Error getting user by ID' });
+    res.status(500).json({ error: "Error getting user by ID" });
   }
 };
 
+// Define an asynchronous function 'createUser' to create a new user.
+const createUser = async (req = request, res = response) => {
+  try {
+    const userData = req.body;
+
+    const newUser = new User(userData);
+
+    // Generate a salt and hash the user's password using 'bcryptjs'.
+    const salt = bcryptjs.genSaltSync();
+    newUser.password = bcryptjs.hashSync(newUser.password, salt);
+
+    // Save the user to the database. 
+    await newUser.save();
+
+    // Respond with a 201 status for successful creation.
+    res.status(201).json(newUser);
+  } catch (error) {
+    res.status(500).json({ error: "Error creating user" });
+  }
+};
+
+// Export the 'getUsers', 'getUserById', and 'createUser' functions for use in other modules.
 module.exports = {
   getUsers,
   getUserById,
+  createUser
 };
