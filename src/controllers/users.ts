@@ -74,9 +74,41 @@ const createUser = async (req = request, res = response) => {
   }
 };
 
+const updateUser = async (req = request, res = response) => {
+  try {
+    const userId = req.params.id; // Extract the user ID from the request parameters.
+    const updateData = req.body; // Get the update data from the request body.
+
+    if (!userId) {
+      // If the user ID is not provided, return a 401 (Unauthorized) response.
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    // Set the 'updatedAt' field to the current date and 'updatedBy' to the user's ID.
+    updateData.updatedAt = new Date();
+    updateData.updatedBy = userId;
+
+    // Use 'User.findByIdAndUpdate' to update the user with the specified ID and retrieve the updated user.
+    const updatedUser = await User.findByIdAndUpdate(userId, updateData, { new: true });
+
+    if (!updatedUser) {
+      // If the user is not found, return a 404 (Not Found) response.
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Return a 200 (OK) response with the updated user data.
+    res.status(200).json(updatedUser);
+
+  } catch (error) {
+    // If an error occurs during the update process, return a 500 (Internal Server Error) response.
+    res.status(500).json({ error: 'Error updating user by ID' });
+  }
+};
+
 // Export the 'getUsers', 'getUserById', and 'createUser' functions for use in other modules.
 module.exports = {
   getUsers,
   getUserById,
-  createUser
+  createUser, 
+  updateUser
 };

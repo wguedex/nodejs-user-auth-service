@@ -50,6 +50,9 @@ const UserSchema = new Schema({
   updatedAt: {
     type: Date,
   },
+  updatedBy: {
+    type: String,
+  },
 });
 
 // Define a method to transform the user object

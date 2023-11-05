@@ -4,7 +4,8 @@ const { Router } = require('express');
 // Import the 'getUsers' function from the 'users' controller.
 const { getUsers, 
         getUserById, 
-        createUser } = require('../controllers/users');
+        createUser, 
+        updateUser } = require('../controllers/users');
 
 // Create a new instance of the 'Router' class.
 const router = Router();
@@ -20,6 +21,10 @@ router.get('/:id', getUserById);
 // Define a route to handle POST requests to '/api/users'.
 // It uses the 'createUser' function from the controller to handle the request.
 router.post('/', createUser);
+
+// Define a route to handle PUT requests to '/api/users/:id'.
+// It uses the 'updateUser' function from the controller to handle the request.
+router.put('/:id', updateUser);
 
 // Export the 'router' instance to make it available for use in other parts of the application.
 module.exports = router;
