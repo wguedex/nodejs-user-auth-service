@@ -63,4 +63,4 @@ const login = async (req = request, res = response) => {
 }
 
 // Export the 'login' route handler function for use in other parts of the application.
-module.exports = { login };
+export default login; 

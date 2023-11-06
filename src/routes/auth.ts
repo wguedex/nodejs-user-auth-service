@@ -1,10 +1,11 @@
-import { Router } from 'express'; // Import the Router from 'express'
-
+ 
+import { Router } from 'express';
+import login from '../controllers/auth';
+ 
 const validateFields = require('../middlewares/validate-fields');
-const { check } = require('express-validator');
-const login = require('../controllers/auth');
-
-const router = Router(); // Create an instance of the Express Router
+const { check } = require('express-validator'); 
+ 
+const router = Router();
 
 // Define a POST route for user login
 router.post('/login', [
@@ -17,5 +18,6 @@ router.post('/login', [
   // Validate fields (assuming there's a 'validateFields' function)
   validateFields,
 ], login);
-
+ 
 module.exports = router; // Export the router for use in other parts of your application
+ 

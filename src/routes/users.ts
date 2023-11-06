@@ -1,5 +1,5 @@
 // Import the 'Router' class from the 'express' framework.
-const { Router } = require('express'); 
+import { Router } from 'express';
 
 // Import the 'getUsers' function from the 'users' controller.
 const { getUsers, 
