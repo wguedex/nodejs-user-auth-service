@@ -5,9 +5,10 @@ import { Request, Response, NextFunction } from "express";
 // Define a middleware function called 'validateFields' that takes
 // Request, Response, and NextFunction as arguments.
 const validateFields = (req: Request, res: Response, next: NextFunction) => {
+ 
     // Use express-validator's 'validationResult' function to check for validation errors.
     const errors = validationResult(req);
-
+ 
     // If there are validation errors, send a response with a 400 (Bad Request) status
     // and an error message in JSON format.
     if (!errors.isEmpty()) {

@@ -10,15 +10,17 @@ const { getUsers,
 
 import validateJWT from '../middlewares/validate-jwt';
 
-const { validateFields,
-        hasRole
-    } = require('../middlewares');
+import validateFields from '../middlewares/validate-fields';
+import {hasRole} from '../middlewares/validate-roles';
+// const { validateFields,
+//         hasRole
+//     } = require('../middlewares');
 
 import { isRoleValid, emailExists, userExistsById  } from '../helpers/db-validators';
 
 const { check } = require('express-validator'); 
 
-// Create a new instance of the 'Router' class.
+// Create a new instance of the         'Router' class.
 const router = Router();
 
 // Define a route to handle GET requests to the root path ('/').
@@ -29,11 +31,10 @@ router.get('/', getUsers);
 // It uses the 'getUserById' function from the controller to handle the request.
 router.get('/:id', [
         check('id', 'Invalid ID').isMongoId(),
-        check('id').custom(userExistsById),
-        check('role').custom(isRoleValid),
-        validateFields
+        check('id').custom(userExistsById), 
+        validateFields,
     ], getUserById);
-    
+
 // Define a route to handle POST requests to '/api/users'.
 // It uses the 'createUser' function from the controller to handle the request.
 router.post('/', [
@@ -51,7 +52,7 @@ router.put('/:id',
 [
         check('id', 'Invalid ID').isMongoId(),
         check('id').custom( userExistsById ),
-        check('rol').custom( isRoleValid ), 
+        check('role').custom( isRoleValid ), 
         validateFields
 ],
 updateUser);

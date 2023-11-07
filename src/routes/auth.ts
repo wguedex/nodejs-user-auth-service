@@ -2,7 +2,7 @@
 import { Router } from 'express';
 import login from '../controllers/auth';
  
-const validateFields = require('../middlewares/validate-fields');
+import validateFields  from '../middlewares/validate-fields';
 const { check } = require('express-validator'); 
  
 const router = Router();
