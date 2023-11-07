@@ -19,4 +19,4 @@ const validateFields = (req: Request, res: Response, next: NextFunction) => {
 };
 
 // Export the 'validateFields' function for use in other parts of the application.
-module.exports = validateFields;
+export default validateFields;

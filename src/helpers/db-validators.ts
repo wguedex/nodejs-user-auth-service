@@ -1,5 +1,5 @@
-const Role = require('../models/role');
-const User = require('../models/user');
+import Role from '../models/role';
+import User from '../models/user';
 
 // Check if the provided role is valid
 const isRoleValid = async (role : String) => {
@@ -33,8 +33,4 @@ const userExistsById = async ( id: String ) => {
 
 }
 
-module.exports = {
-    isRoleValid,
-    emailExists,
-    userExistsById
-}
+export { isRoleValid, emailExists, userExistsById };
