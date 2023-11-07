@@ -8,6 +8,7 @@ interface CustomJwtPayload extends JwtPayload {
 }
 
 const validateJWT = async (req: Request, res: Response, next: NextFunction) => {
+
     const token = req.header('x-token');
 
     if (!token) {
@@ -28,6 +29,13 @@ const validateJWT = async (req: Request, res: Response, next: NextFunction) => {
             });
         }
 
+        // Check if the user ID in the request parameters matches the authenticated user's ID
+        if (req.params.id !== uid) {
+            return res.status(401).json({
+                msg: 'Unauthorized - You are not allowed to perform this operation'
+            });
+        }
+
         // Verify if the user's status is true
         if (!user.status) {
             return res.status(401).json({
@@ -45,6 +53,4 @@ const validateJWT = async (req: Request, res: Response, next: NextFunction) => {
     }
 };
 
-export {
-    validateJWT
-};
+export default validateJWT ;

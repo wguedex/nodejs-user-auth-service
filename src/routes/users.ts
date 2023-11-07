@@ -8,6 +8,8 @@ const { getUsers,
         updateUser, 
         deleteUser } = require('../controllers/users');
 
+import validateJWT from '../middlewares/validate-jwt';
+
 // Create a new instance of the 'Router' class.
 const router = Router();
 
@@ -29,7 +31,7 @@ router.put('/:id', updateUser);
 
 // Define a route to handle DELETE requests to '/api/users/:id'.
 // It uses the 'deleteUser' function from the controller to handle the request.
-router.delete('/:id', deleteUser);
+router.delete('/:id', [validateJWT], deleteUser);
 
 // Export the 'router' instance to make it available for use in other parts of the application.
 module.exports = router;
