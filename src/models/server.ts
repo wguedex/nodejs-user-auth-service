@@ -27,10 +27,10 @@ class Server {
     // CORS
     this.app.use(cors()); // Enable Cross-Origin Resource Sharing (CORS)
 
-    // Lectura y parseo del body (Reading and parsing the request body as JSON)
+    // Reading and parsing the request body as JSON
     this.app.use(express.json());
 
-    // Directorio Público (Public directory)
+    // Public directory
     this.app.use(express.static("public"));
   }
 

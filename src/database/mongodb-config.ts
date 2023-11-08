@@ -17,15 +17,21 @@ class MongoDBConfig {
 
   // Asynchronous method to connect to the MongoDB database
   public async connect(): Promise<void> {
-
     try {  
-      await mongoose.connect(this.uri ); // Connect to MongoDB using the constructed URI
-      console.log("MongoDB connected"); // Log a message when the connection is successful
- 
+      await mongoose.connect(this.uri);
+      console.log("MongoDB connected");
     } catch (error) {
-      console.error("MongoDB connection error:", error); // Log an error message if the connection fails
+      if (error instanceof Error) {
+        const errorMessage = error.message as string;
+        if (/authentication failed/i.test(errorMessage)) {
+          console.error("Authentication failed. Check your MongoDB credentials.");
+        } else {
+          console.error("MongoDB connection error:", errorMessage);
+        }
+      } else {
+        console.error("Unexpected error:", error);
+      }
     }
-
   }
 
   // Asynchronous method to disconnect from the MongoDB database
