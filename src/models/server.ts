@@ -14,13 +14,13 @@ class Server {
   constructor() {
     this.app = express(); // Create an Express application
     this.port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000; // Set the port from environment variables or default to 3000
-
-    this.connectToDB(); // Establish a connection to the MongoDB database
-
-    // Middlewares
+  
+    // Middlewares (configure middlewares first)
     this.middlewares(); // Set up middleware functions
-
+  
+    // Configure the API routes (configure routes after middlewares)
     this.configureRoutes(); // Configure the API routes
+    this.connectToDB(); // Establish a connection to the MongoDB database
   }
 
   middlewares(): void {

@@ -8,7 +8,7 @@ import bcryptjs from 'bcryptjs';
 import { request, response } from "express";
 
 // Define an asynchronous function 'getUsers' to handle user retrieval.
-const getUsers = async (req = request, res = response) => {
+export const getUsers = async (req = request, res = response) => {
   try {
     // Extract query parameters 'limit' and 'from' from the request.
     const { limit = 5, from = 0 } = req.query;
@@ -38,7 +38,7 @@ const getUsers = async (req = request, res = response) => {
 };
 
 // Define an asynchronous function 'getUserById' to retrieve a user by ID.
-const getUserById = async (req = request, res = response) => {
+export const getUserById = async (req = request, res = response) => {
   try {
     const userId = req.params.id;
     const user = await User.findById(userId);
@@ -54,7 +54,7 @@ const getUserById = async (req = request, res = response) => {
 };
 
 // Define an asynchronous function 'createUser' to create a new user.
-const createUser = async (req = request, res = response) => {
+export const createUser = async (req = request, res = response) => {
   try {
     const userData = req.body;
 
@@ -74,7 +74,7 @@ const createUser = async (req = request, res = response) => {
   }
 };
 
-const updateUser = async (req = request, res = response) => {
+export const updateUser = async (req = request, res = response) => {
   try {
     const userId = req.params.id; // Extract the user ID from the request parameters.
     const updateData = req.body; // Get the update data from the request body.
@@ -105,7 +105,7 @@ const updateUser = async (req = request, res = response) => {
   }
 };
 
-const deleteUser = async (req = request, res = response) => {
+export const deleteUser = async (req = request, res = response) => {
   try {
     const userId = req.params.id;
 
@@ -132,11 +132,11 @@ const deleteUser = async (req = request, res = response) => {
 };
 
 
-// Export the 'getUsers', 'getUserById', and 'createUser' functions for use in other modules.
-module.exports = {
-  getUsers,
-  getUserById,
-  createUser, 
-  updateUser, 
-  deleteUser
-};
+// // Export the 'getUsers', 'getUserById', and 'createUser' functions for use in other modules.
+// module.exports = {
+//   getUsers,
+//   getUserById,
+//   createUser, 
+//   updateUser, 
+//   deleteUser
+// };

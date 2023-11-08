@@ -1,70 +1,83 @@
-// Import the 'Router' class from the 'express' framework.
 import { Router } from 'express';
+import { check } from 'express-validator';
 
-// Import the 'getUsers' function from the 'users' controller.
-const { getUsers, 
-        getUserById, 
-        createUser, 
-        updateUser, 
-        deleteUser } = require('../controllers/user-controller');
+import {
+  getUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser
+} from '../controllers/user-controller';
 
 import validateJWT from '../middlewares/validate-jwt';
-
 import validateFields from '../middlewares/validate-fields';
-import {hasRole} from '../middlewares/validate-roles';
-// const { validateFields,
-//         hasRole
-//     } = require('../middlewares');
+import { hasRole } from '../middlewares/validate-roles';
+import { isRoleValid, emailExists, userExistsById } from '../helpers/db-validators';
 
-import { isRoleValid, emailExists, userExistsById  } from '../helpers/db-validators';
-
-const { check } = require('express-validator'); 
-
-// Create a new instance of the         'Router' class.
 const router = Router();
 
-// Define a route to handle GET requests to the root path ('/').
-// It uses the 'getUsers' function from the controller to handle the request.
+/**
+ * Route to get a list of users.
+ * GET /api/users
+ */
 router.get('/', getUsers);
 
-// Define a route to handle GET requests to '/api/users/:id'.
-// It uses the 'getUserById' function from the controller to handle the request.
+/**
+ * Route to get a user by ID.
+ * GET /api/users/:id
+ * - Validates that the ID is a valid MongoDB ID.
+ * - Checks if the user exists by ID.
+ */
 router.get('/:id', [
-        check('id', 'Invalid ID').isMongoId(),
-        check('id').custom(userExistsById), 
-        validateFields,
-    ], getUserById);
+  check('id', 'Invalid ID').isMongoId(),
+  check('id').custom(userExistsById),
+  validateFields,
+], getUserById);
 
-// Define a route to handle POST requests to '/api/users'.
-// It uses the 'createUser' function from the controller to handle the request.
+/**
+ * Route to create a new user.
+ * POST /api/users
+ * - Validates user data including name, password, email, and role.
+ * - Checks if the email already exists.
+ * - Validates the role.
+ */
 router.post('/', [
-        check('name', 'Name is required').not().isEmpty(),
-        check('password', 'Password must be at least 6 characters long').isLength({ min: 6 }),
-        check('email', 'Email is not valid').isEmail(),
-        check('email').custom(emailExists),
-        check('role').custom(isRoleValid),
-        validateFields
-    ], createUser);
-    
-// Define a route to handle PUT requests to '/api/users/:id'.
-// It uses the 'updateUser' function from the controller to handle the request.
-router.put('/:id', 
-[
-        check('id', 'Invalid ID').isMongoId(),
-        check('id').custom( userExistsById ),
-        check('role').custom( isRoleValid ), 
-        validateFields
-],
-updateUser);
+  check('name', 'Name is required').not().isEmpty(),
+  check('password', 'Password must be at least 6 characters long').isLength({ min: 6 }),
+  check('email', 'Email is not valid').isEmail(),
+  check('email').custom(emailExists),
+  check('role').custom(isRoleValid),
+  validateFields,
+], createUser);
 
-// Define a route to handle DELETE requests to '/api/users/:id'.
-// It uses the 'deleteUser' function from the controller to handle the request.
+/**
+ * Route to update a user by ID.
+ * PUT /api/users/:id
+ * - Validates that the ID is a valid MongoDB ID.
+ * - Checks if the user exists by ID.
+ * - Validates the role.
+ */
+router.put('/:id', [
+  check('id', 'Invalid ID').isMongoId(),
+  check('id').custom(userExistsById),
+  check('role').custom(isRoleValid),
+  validateFields,
+], updateUser);
+
+/**
+ * Route to delete a user by ID.
+ * DELETE /api/users/:id
+ * - Requires JWT authentication.
+ * - Checks user roles to ensure access.
+ * - Validates that the ID is a valid MongoDB ID.
+ * - Checks if the user exists by ID.
+ */
 router.delete('/:id', [
-        validateJWT, 
-        hasRole('ADMIN_ROLE', 'OTHER_ROLE'),
-        check('id', 'Invalid ID').isMongoId(),
-        check('id').custom( userExistsById ),
-        validateFields
+  validateJWT,
+  hasRole('ADMIN_ROLE', 'OTHER_ROLE'),
+  check('id', 'Invalid ID').isMongoId(),
+  check('id').custom(userExistsById),
+  validateFields,
 ], deleteUser);
 
 // Export the 'router' instance to make it available for use in other parts of the application.
