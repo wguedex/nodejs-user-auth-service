@@ -2,13 +2,13 @@
 import config from "../src/configs/configs";
 
 // Import the 'MongoDBConfig' class to set up MongoDB configuration.
-import MongoDBConfig from "../src/databases/MongoDBConfig";
+import MongoDBConfig from "../src/database/mongodb-config";
 
 // Import the 'User' model for working with user data.
-import User from "../src/models/user";
+import User from "../src/models/user-model";
 
 // Import the 'bcrypt' library for password hashing.
-import bcrypt from 'bcrypt';
+import bcryptjs from 'bcryptjs'; 
 
 // Log the 'config' object to the console for reference.
 console.log(config);
@@ -41,7 +41,7 @@ if (uri && user && password) {
       const saltRounds = 10;
 
       // Hash the user's password using 'bcrypt'.
-      const hash = await bcrypt.hash(newUser.password, saltRounds);
+      const hash = await bcryptjs.hash(newUser.password, saltRounds);
       newUser.password = hash;
 
       // Save the user in the database.

@@ -1,6 +1,6 @@
 // Import necessary modules and classes
 import config from "../src/configs/configs"; // Import the configuration object
-import MongoDBConfig from "../src/databases/MongoDBConfig"; // Import the MongoDB configuration class
+import MongoDBConfig from "../src/databases/mongodb-config"; // Import the MongoDB configuration class
 
 // Log the configuration object for debugging purposes
 console.log(config);

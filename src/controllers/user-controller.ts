@@ -1,5 +1,5 @@
 // Import the 'User' model from '../models/user'.
-import User from "../models/user";
+import User from "../models/user-model";
 
 // Import the 'bcryptjs' library for password hashing.
 import bcryptjs from 'bcryptjs';

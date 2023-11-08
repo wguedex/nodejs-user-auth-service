@@ -1,5 +1,5 @@
 import config from "../configs/configs"; // Import the configuration settings
-import MongoDBConfig from "../databases/MongoDBConfig"; // Import the MongoDB configuration
+import MongoDBConfig from "../database/mongodb-config"; // Import the MongoDB configuration
 
 import express, { Request, Response } from "express";
 
@@ -52,8 +52,8 @@ class Server {
   }
 
   private configureRoutes(): void {
-    this.app.use(this.pathUsers, require('../routes/users')); // Configure the API routes for user-related endpoints using the 'users' route module
-    this.app.use(this.authPath, require('../routes/auth')); // Configure authentication routes
+    this.app.use(this.pathUsers, require('../routes/user-routes')); // Configure the API routes for user-related endpoints using the 'users' route module
+    this.app.use(this.authPath, require('../routes/auth-routes')); // Configure authentication routes
   }
 
   public startServer(): void {

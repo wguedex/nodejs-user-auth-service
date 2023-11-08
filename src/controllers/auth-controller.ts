@@ -2,13 +2,13 @@
 import { request, response } from "express";
 
 // Import the 'User' model from '../models/user'.
-import User from "../models/user";
+import User from "../models/user-model";
 
 // Import the 'bcryptjs' library for password hashing.
 import bcryptjs from 'bcryptjs';
 
 // Import a function to generate JSON Web Tokens (JWT).
-import generateJWT from '../helpers/generate-JWT';
+import generateJWT from '../helpers/jwt-helper';
 
 // Define a login route handler.
 const login = async (req = request, res = response) => {

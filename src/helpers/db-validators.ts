@@ -1,5 +1,5 @@
-import Role from '../models/role';
-import User from '../models/user';
+import Role from '../models/role-model';
+import User from '../models/user-model';
 
 // Check if the provided role is valid
 const isRoleValid = async (role : String) => {
