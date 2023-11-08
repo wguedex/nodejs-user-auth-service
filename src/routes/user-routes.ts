@@ -6,7 +6,7 @@ const { getUsers,
         getUserById, 
         createUser, 
         updateUser, 
-        deleteUser } = require('../controllers/users');
+        deleteUser } = require('../controllers/user-controller');
 
 import validateJWT from '../middlewares/validate-jwt';
 
