@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import User from '../models/user-model';
-import config from '../configs/configs'; // Import the configuration object
+import config from '../config/config'; // Import the configuration object
 
 interface CustomJwtPayload extends JwtPayload {
     uid: string; // Add the 'uid' property to the JWT payload

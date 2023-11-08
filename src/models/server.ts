@@ -1,10 +1,10 @@
-import config from "../configs/configs"; // Import the configuration settings
+import config from "../config/config"; // Import the configuration settings
 import MongoDBConfig from "../database/mongodb-config"; // Import the MongoDB configuration
 
 import express, { Request, Response } from "express";
 
 import cors from "cors";
-
+ 
 class Server {
   private pathUsers = '/api/users'; // Define the path for user-related API endpoints
   private authPath = '/api/auth'; // Define the path for authentication-related API endpoints
@@ -38,7 +38,7 @@ class Server {
     const uri = config.mongodb.uri; // Get the MongoDB URI from the configuration
     const user = config.mongodb.user; // Get the MongoDB user from the configuration
     const password = config.mongodb.password; // Get the MongoDB password from the configuration
-
+ 
     // Check if uri, user, and password are defined
     if (uri && user && password) {
       // Create an instance of the MongoDBConfig class using environment variables

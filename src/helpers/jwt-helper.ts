@@ -2,7 +2,7 @@
 import jwt from 'jsonwebtoken'; 
 
 // Import the configuration settings, which likely contain a secret key.
-import config from "../configs/configs";
+import config from "../config/config";
 
 
 
