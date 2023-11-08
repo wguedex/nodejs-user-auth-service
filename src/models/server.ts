@@ -13,7 +13,7 @@ class Server {
 
   constructor() {
     this.app = express(); // Create an Express application
-    this.port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000; // Set the port from environment variables or default to 3000
+    this.port = config.port; // Set the port from environment variables or default to 3000
   
     // Middlewares (configure middlewares first)
     this.middlewares(); // Set up middleware functions

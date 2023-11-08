@@ -130,13 +130,4 @@ export const deleteUser = async (req = request, res = response) => {
     res.status(500).json({ error: 'Error deleting user by ID' });
   }
 };
-
-
-// // Export the 'getUsers', 'getUserById', and 'createUser' functions for use in other modules.
-// module.exports = {
-//   getUsers,
-//   getUserById,
-//   createUser, 
-//   updateUser, 
-//   deleteUser
-// };
+ 

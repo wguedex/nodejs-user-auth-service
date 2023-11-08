@@ -5,6 +5,7 @@ dotenv.config();
  
 // Define a configuration object with MongoDB connection details.
 const config = {
+  port : process.env.PORT ? parseInt(process.env.PORT, 10) : 3000,
   mongodb: {
     uri: process.env.MONGODB_URI || "",           // MongoDB URI
     user: process.env.MONGODB_USER || "",          // MongoDB username
