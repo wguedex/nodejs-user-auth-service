@@ -6,8 +6,6 @@ const RoleSchema = new Schema({
         required: [true, 'Role is mandatory']
     }
 });
-
-
-// module.exports = model( 'Role', RoleSchema );
+ 
 const Role = model('Role', RoleSchema);
 export default Role;

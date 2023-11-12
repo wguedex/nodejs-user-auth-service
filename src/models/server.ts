@@ -1,8 +1,6 @@
 import config from "../config/config"; // Import the configuration settings
 import MongoDBConfig from "../database/mongodb-config"; // Import the MongoDB configuration
-
 import express, { Request, Response } from "express";
-
 import cors from "cors";
  
 class Server {
@@ -20,6 +18,7 @@ class Server {
   
     // Configure the API routes (configure routes after middlewares)
     this.configureRoutes(); // Configure the API routes
+
     this.connectToDB(); // Establish a connection to the MongoDB database
   }
 
@@ -29,9 +28,9 @@ class Server {
 
     // Reading and parsing the request body as JSON
     this.app.use(express.json());
-
+ 
     // Public directory
-    this.app.use(express.static("public"));
+    this.app.use(express.static('public'));
   }
 
   private connectToDB(): void {

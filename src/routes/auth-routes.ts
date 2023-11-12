@@ -1,10 +1,9 @@
  
 import { Router } from 'express';
-import login from '../controllers/auth-controller';
- 
-import validateFields  from '../middlewares/validate-fields';
 import { check }  from 'express-validator'; 
- 
+import login from '../controllers/auth-controller';
+import validateFields  from '../middlewares/validate-fields';
+
 const router = Router();
 
 // Define a POST route for user login

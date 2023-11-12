@@ -18,6 +18,7 @@ class MongoDBConfig {
   // Asynchronous method to connect to the MongoDB database
   public async connect(): Promise<void> {
     try {  
+
       await mongoose.connect(this.uri);
       console.log("MongoDB connected");
     } catch (error) {

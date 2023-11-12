@@ -8,7 +8,7 @@ const config = {
   port : process.env.PORT ? parseInt(process.env.PORT, 10) : 3000,
   mongodb: {
     uri: process.env.MONGODB_URI || "",           // MongoDB URI
-    user: process.env.MONGODB_USER || "",          // MongoDB username
+    user: process.env.MONGODB_USER || "",         // MongoDB username
     password: process.env.MONGODB_PASSWORD || "", // MongoDB password (empty for now)
   },
   PRIVATEKEYSECRET : process.env.PRIVATEKEYSECRET || ""

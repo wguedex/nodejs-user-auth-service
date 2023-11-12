@@ -1,5 +1,4 @@
-const { response } = require("express");
-
+import { response } from "express";
 import { Request, Response, NextFunction } from "express";
 
 const isAdminRole = (req: Request, res: Response, next: NextFunction) => {

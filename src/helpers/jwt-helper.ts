@@ -4,8 +4,6 @@ import jwt from 'jsonwebtoken';
 // Import the configuration settings, which likely contain a secret key.
 import config from "../config/config";
 
-
-
 // Define a function for generating a JSON Web Token (JWT) with a given 'uid'.
 const generateJWT = (uid: string) => {
     return new Promise((resolve, reject) => {
