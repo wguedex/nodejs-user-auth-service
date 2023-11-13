@@ -9,9 +9,10 @@ import bcryptjs from 'bcryptjs';
 
 // Import a function to generate JSON Web Tokens (JWT).
 import generateJWT from '../helpers/jwt-helper';
+import  googleVerify from '../helpers/google-verify';
 
 // Define a login route handler.
-const login = async (req = request, res = response) => {
+export const login = async (req = request, res = response) => {
 
     // Extract 'email' and 'password' from the request body.
     const { email, password } = req.body;
@@ -62,5 +63,50 @@ const login = async (req = request, res = response) => {
     }
 }
 
-// Export the 'login' route handler function for use in other parts of the application.
-export default login; 
+export const googleSignIn = async (req = request, res = response) => {
+  
+    const {id_token} = req.body; 
+ 
+    try {
+        let { email, name, img } = await googleVerify( id_token );
+ 
+        let user = await User.findOne({ email });
+ 
+        if ( !user ) {
+            // I need to create a user  
+            const data = {
+                email,
+                name, 
+                password: ':P',
+                role: 'USER_ROLE',
+                img,
+                google: true
+            };
+
+            user = new User( data );
+            await user.save();
+        }
+
+        // If the user is in the database
+        if ( !user.status ) {
+            return res.status(401).json({
+                msg: 'Speak with the administrator, user is blocked'
+            });
+        }
+ 
+        const token = await generateJWT( user.id );
+        
+        res.json({
+            user,
+            token
+        });
+        
+    } catch (error) {
+
+        res.status(400).json({
+            msg: 'Google Token is not valid'
+        })
+
+    }
+ 
+}

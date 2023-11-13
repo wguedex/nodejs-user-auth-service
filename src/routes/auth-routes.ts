@@ -1,10 +1,11 @@
  
 import { Router } from 'express';
 import { check }  from 'express-validator'; 
-import login from '../controllers/auth-controller';
+import {login, googleSignIn} from '../controllers/auth-controller';
 import validateFields  from '../middlewares/validate-fields';
 
 const router = Router();
+
 
 // Define a POST route for user login
 router.post('/login', [
@@ -18,5 +19,16 @@ router.post('/login', [
   validateFields,
 ], login);
  
+// Define a POST route for user login
+router.post('/google', [
+  // Check if the 'email' field is mandatory and should be an email
+  check('id_token', 'ID token is required').not().isEmpty(),
+ 
+  // Validate fields (assuming there's a 'validateFields' function)
+  validateFields,
+], googleSignIn);
+ 
+
+
 module.exports = router; // Export the router for use in other parts of your application
  
