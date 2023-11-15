@@ -1,3 +1,20 @@
+/**
+ * User Controllers
+ * 
+ * This file contains controllers related to user operations in the application.
+ * It includes controllers for managing user data such as retrieving, creating,
+ * updating, and deleting users. Each controller is designed to handle a specific
+ * user-related request, perform necessary validations, interact with the database,
+ * and return appropriate responses to the client.
+ * 
+ * Functions:
+ * - getUsers: Retrieve a list of users with pagination support.
+ * - getUserById: Fetch a single user by their unique ID.
+ * - createUser: Create a new user with validated data.
+ * - updateUser: Update existing user data based on the provided user ID.
+ * - deleteUser: Perform a soft delete on a user, marking them as inactive.
+ */
+
 // Import the 'User' model from '../models/user'.
 import User from "../models/user-model";
 
@@ -7,7 +24,15 @@ import bcryptjs from 'bcryptjs';
 // Import the 'request' and 'response' objects from the 'express' library.
 import { request, response } from "express";
 
-// Define an asynchronous function 'getUsers' to handle user retrieval.
+/**
+ * Get Users Controller
+ * 
+ * Retrieves a list of users from the database. Supports pagination through query parameters.
+ * Handles any errors that might occur during the retrieval process.
+ * 
+ * @param {request} req - The request object, containing query parameters for pagination.
+ * @param {response} res - The response object used to return the data or errors.
+ */
 export const getUsers = async (req = request, res = response) => {
   try {
     // Extract query parameters 'limit' and 'from' from the request.
@@ -37,7 +62,15 @@ export const getUsers = async (req = request, res = response) => {
   }
 };
 
-// Define an asynchronous function 'getUserById' to retrieve a user by ID.
+/**
+ * Get User By ID Controller
+ * 
+ * Retrieves a single user by their unique ID from the database. Handles cases where
+ * the user might not exist or other errors that may occur during retrieval.
+ * 
+ * @param {request} req - The request object, containing the user ID as a parameter.
+ * @param {response} res - The response object used to return the user data or errors.
+ */
 export const getUserById = async (req = request, res = response) => {
   try {
     const userId = req.params.id;
@@ -53,7 +86,15 @@ export const getUserById = async (req = request, res = response) => {
   }
 };
 
-// Define an asynchronous function 'createUser' to create a new user.
+/**
+ * Create User Controller
+ * 
+ * Handles the creation of a new user. Validates and sanitizes input data before
+ * saving it to the database. Handles any errors that might occur during the process.
+ * 
+ * @param {request} req - The request object, containing the new user data.
+ * @param {response} res - The response object used to confirm the creation or report errors.
+ */
 export const createUser = async (req = request, res = response) => {
   try {
     const userData = req.body;
@@ -74,6 +115,16 @@ export const createUser = async (req = request, res = response) => {
   }
 };
 
+/**
+ * Update User Controller
+ * 
+ * Updates the details of an existing user identified by their unique ID. Validates and 
+ * sanitizes input data before updating the database. Handles non-existent users and other 
+ * errors that might occur.
+ * 
+ * @param {request} req - The request object, containing the user ID and new data to update.
+ * @param {response} res - The response object used to confirm the update or report errors.
+ */
 export const updateUser = async (req = request, res = response) => {
   try {
     const userId = req.params.id; // Extract the user ID from the request parameters.
@@ -105,6 +156,16 @@ export const updateUser = async (req = request, res = response) => {
   }
 };
 
+/**
+ * Delete User Controller
+ * 
+ * Handles the 'soft deletion' of a user, setting their status to inactive. Validates the 
+ * user's ID and ensures they exist before performing the deletion. Handles any errors that 
+ * might occur.
+ * 
+ * @param {request} req - The request object, containing the user ID.
+ * @param {response} res - The response object used to confirm the deletion or report errors.
+ */
 export const deleteUser = async (req = request, res = response) => {
   try {
     const userId = req.params.id;

@@ -1,3 +1,13 @@
+/**
+ * User Routes
+ * 
+ * This file defines all the routes related to user management in the application.
+ * It includes operations to retrieve, create, update, and delete users, along with
+ * necessary validations for each operation. The routes utilize various middlewares
+ * for input validation, user authentication, and authorization checks. This setup
+ * ensures that user-related operations are handled securely and efficiently.
+ */
+
 import { Router } from 'express';
 import { check } from 'express-validator';
 
@@ -11,7 +21,7 @@ import {
 
 import validateJWT from '../middlewares/validate-jwt';
 import validateFields from '../middlewares/validate-fields';
-import { hasRole } from '../middlewares/validate-roles';
+import { isAdminRole , hasRole } from '../middlewares/validate-roles';
 import { isRoleValid, emailExists, userExistsById } from '../helpers/db-validators';
 
 const router = Router();
@@ -74,7 +84,8 @@ router.put('/:id', [
  */
 router.delete('/:id', [
   validateJWT,
-  hasRole('ADMIN_ROLE', 'OTHER_ROLE'),
+  // isAdminRole,
+  hasRole('ADMIN_ROLE', 'USER_ROLE'),
   check('id', 'Invalid ID').isMongoId(),
   check('id').custom(userExistsById),
   validateFields,

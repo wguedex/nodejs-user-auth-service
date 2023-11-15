@@ -1,3 +1,16 @@
+/**
+ * User Model
+ *
+ * This schema defines the structure for the 'User' model using Mongoose.
+ * It includes fields for the user's personal and authentication information,
+ * roles, status, and audit fields for tracking creation and modification.
+ *
+ * Fields:
+ * - name, email, password, img, role, status, authProviders, createdAt, updatedAt, updatedBy
+ *
+ * Methods:
+ * - toJSON: Custom method to transform the user object, excluding sensitive fields like password.
+ */
 
 import { Schema, model } from 'mongoose';
 
@@ -42,6 +55,10 @@ const UserSchema = new Schema({
     type: Boolean,
     default: true,
   },
+  google : {
+    type: Boolean,
+    default: false,
+  }, 
   authProviders: [AuthProviderSchema], // Stores authentication information for multiple providers
   createdAt: {
     type: Date,
