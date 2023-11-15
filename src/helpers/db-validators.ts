@@ -1,15 +1,7 @@
 import Role from '../models/role-model';
 import User from '../models/user-model';
 
-/**
- * Check if Role is Valid
- * 
- * Validates whether the given role exists in the database. This function is used to ensure
- * that only valid roles are assigned to users.
- * 
- * @param {String} role - The role to be validated.
- * @throws {Error} Throws an error if the role does not exist in the database.
- */
+// Check if the provided role is valid
 const isRoleValid = async (role : String) => {
 
     const existingRole = await Role.findOne({ role });
@@ -19,15 +11,7 @@ const isRoleValid = async (role : String) => {
 
 }
 
-/**
- * Check if Email Already Exists
- * 
- * Validates whether the given email is already registered in the database. This is
- * crucial for avoiding duplicate user registrations and maintaining unique user identities.
- * 
- * @param {String} email - The email to be checked.
- * @throws {Error} - Throws an error if the email is already registered.
- */
+// Check if the provided email already exists
 const emailExists = async ( email : String ) => {
 
     // Check if the email exists
@@ -38,16 +22,7 @@ const emailExists = async ( email : String ) => {
 
 }
 
-/**
- * Check if User Exists by ID
- * 
- * Validates whether a user with the given ID exists in the database. This function
- * is used to verify the existence of a user before performing operations that require
- * a valid user reference.
- * 
- * @param {String} id - The ID of the user to be checked.
- * @throws {Error} - Throws an error if no user exists with the given ID.
- */
+// Check if a user with the provided ID exists
 const userExistsById = async ( id: String ) => {
 
     // Check if a user with the provided ID exists

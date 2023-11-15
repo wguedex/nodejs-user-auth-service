@@ -1,21 +1,3 @@
-/**
- * Authentication Controllers
- * 
- * This file contains controllers for handling user authentication within the application.
- * It includes controllers for standard email/password login and for login via Google's OAuth service.
- * These controllers are responsible for verifying user credentials, managing user sessions,
- * and generating JSON Web Tokens (JWT) for authenticated sessions.
- * 
- * Controllers:
- * - login: Authenticate users with email and password, generate a JWT upon successful login.
- * - googleSignIn: Authenticate users via Google ID token, create a new user if not existing,
- *   and generate a JWT for the authenticated session.
- * 
- * The controllers ensure that user authentication is handled securely, efficiently, and
- * in compliance with best practices for modern web applications.
- */
-
-
 // Import the 'request' and 'response' objects from the 'express' library.
 import { request, response } from "express";
 
@@ -29,16 +11,7 @@ import bcryptjs from 'bcryptjs';
 import generateJWT from '../helpers/jwt-helper';
 import  googleVerify from '../helpers/google-verify';
 
-/**
- * Login Controller
- * 
- * Handles user authentication using email and password. This controller is responsible for
- * validating the user's credentials, checking their active status, and generating a JWT token
- * upon successful authentication.
- * 
- * @param {Request} req - The request object containing the user's email and password.
- * @param {Response} res - The response object used for sending back the JWT token or error messages.
- */
+// Define a login route handler.
 export const login = async (req = request, res = response) => {
 
     // Extract 'email' and 'password' from the request body.
@@ -47,12 +20,6 @@ export const login = async (req = request, res = response) => {
     try {
         // Find a user by their email in the database.
         const user = await User.findOne({ email });
-
-        if (user && user.google) {
-            return res.status(400).json({
-                msg: "This user is registered through Google. Please use Google Sign-In."
-            });
-        }
 
         // If no user is found with the provided email, respond with an error.
         if (!user) {
@@ -96,34 +63,21 @@ export const login = async (req = request, res = response) => {
     }
 }
 
-/**
- * Google Sign-In Controller
- * 
- * Manages user authentication using Google ID token. This controller validates the ID token,
- * checks if a user already exists with the given email, and if not, creates a new user.
- * A JWT token is generated for the authenticated user.
- * 
- * @param {Request} req - The request object containing the Google ID token.
- * @param {Response} res - The response object used for sending back the JWT token or error messages.
- */
 export const googleSignIn = async (req = request, res = response) => {
   
     const {id_token} = req.body; 
-
+ 
     try {
         let { email, name, img } = await googleVerify( id_token );
  
-        console.log(email)
-        console.log(name)
-        console.log(img)
-
         let user = await User.findOne({ email });
  
         if ( !user ) {
             // I need to create a user  
             const data = {
                 email,
-                name,  
+                name, 
+                password: ':P',
                 role: 'USER_ROLE',
                 img,
                 google: true

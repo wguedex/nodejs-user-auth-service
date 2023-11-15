@@ -7,17 +7,6 @@ interface CustomJwtPayload extends JwtPayload {
     uid: string; // Add the 'uid' property to the JWT payload
 }
 
-/**
- * JWT Validation Middleware
- *
- * This middleware is responsible for validating JSON Web Tokens included in the request headers.
- * It ensures that the token is valid, corresponds to an existing user, and that the user is active.
- * If the validation fails, it responds with a 401 Unauthorized error.
- * 
- * @param {Request} req - The Express request object.
- * @param {Response} res - The Express response object.
- * @param {NextFunction} next - The next middleware to be executed.
- */
 const validateJWT = async (req: Request, res: Response, next: NextFunction) => {
 
     const token = req.header('x-token');
