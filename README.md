@@ -1,29 +1,29 @@
-# Node.js User Authentication Service
 
-This repository contains a Node.js-based authentication service designed to handle user authentication with JWT (JSON Web Tokens). It is built with Express.js and uses MongoDB as the data store through Mongoose.
+Claro, aquí tienes la versión en inglés del README para tu proyecto "nodejs-user-auth-service":
 
-## Features
+nodejs-user-auth-service
+Description
+nodejs-user-auth-service is a Node.js based user authentication service, utilizing JWT (JSON Web Tokens) and AuthProvider for secure and efficient authentication management. This service also integrates Google Authenticator, offering an additional layer of security through two-factor authentication (2FA).
 
-- User registration and authentication.
-- Password encryption with bcryptjs.
-- JWT-based user session management.
-- Middleware for route protection based on JWT.
-- Express Validator for input validation.
+Technologies Used
+Node.js
+TypeScript
+MongoDB
+Express.js
+JWT (JSON Web Tokens)
+Google Authenticator
+Installation and Setup
+Clone the repository to your local machine.
+Install dependencies by running npm install.
+Set up the necessary environment variables in the .env file.
+To start the service, run npm start.
+Features
+User authentication and authorization.
+JWT for secure token-based user sessions.
+Integration with Google Authenticator for 2FA.
+Robust MongoDB integration for user data management.
+Usage
+After starting the service, it will be accessible for user authentication requests. Utilize the provided endpoints for user registration, login, and verification.
 
-## Installation
-
-To get started with this project, clone the repository and install the dependencies:
-
-```bash
-git clone https://github.com/your-username/nodejs-user-auth.git](https://github.com/wguedex/nodejs-user-auth-service.git)https://github.com/wguedex/nodejs-user-auth-service.git
-cd nodejs-user-auth-service
-npm install
-```
-## Configuration
-Create a .env file in the root directory and add the following environment-specific variables:
-```bash
-MONGODB_URI=<uri>/<db>
-MONGODB_USER= 
-MONGODB_PASSWORD= 
-PRIVATEKEYSECRET=
-```
+Contributions
+Contributions are welcome! Please follow the standard coding practices, write tests for new features, and document your code.
